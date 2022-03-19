@@ -1,4 +1,5 @@
 import { Container, Stack, Typography } from "@mui/material"
+import Header from "../components/Header"
 
 const containerStyles = {
   display: 'flex',
@@ -9,13 +10,16 @@ const containerStyles = {
 
 function Clients() {
   return (
-    <Container maxWidth="lg" sx={containerStyles}>
-      <Stack spacing={2}>
-        <Typography variant="h5" align="center">
-          CLIENTES
-        </Typography>
-      </Stack>
-    </Container>
+    <Stack>
+      <Header />
+      <Container maxWidth="lg" sx={containerStyles}>
+        <Stack spacing={2}>
+          <Typography variant="h5" align="center">
+            CLIENTES
+          </Typography>
+        </Stack>
+      </Container>
+    </Stack>
   )
 }
 export default Clients
