@@ -1,5 +1,6 @@
-import { Button, Container, Stack, TextField, Typography } from "@mui/material"
 import { useState } from "react"
+import { Button, Container, Fab, Stack, TextField, Typography } from "@mui/material"
+import LoginIcon from '@mui/icons-material/Login';
 
 const containerStyles = {
   display: 'flex',
@@ -8,6 +9,11 @@ const containerStyles = {
   justifyContent: 'center',
   minHeight: '100vh',
 }
+const fabStyle = {
+  position: 'absolute',
+  bottom: 16,
+  right: 16,
+};
 
 function Query() {
   const [queryData, setQueryData] = useState({ order: "", ci: "" })
@@ -37,6 +43,9 @@ function Query() {
           Aceptar
         </Button>
       </Stack>
+      <Fab sx={fabStyle} color="success">
+        <LoginIcon color="white"/>
+      </Fab>
     </Container>
   )
 }
