@@ -1,8 +1,9 @@
+import { useEffect, useState } from "react";
 import { collection, getDocs, query } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 import { Container, IconButton, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 import Header from "../components/Header"
 import { db } from "../utils/firebaseConfig";
-import { useEffect, useState } from "react";
 
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -19,10 +20,12 @@ async function getData(setclients) {
 }
 function Clients() {
   const [clients, setclients] = useState([])
+  const navigate = useNavigate()
+
   useEffect(() => {
     getData(setclients)
   }, [])
-  console.log(clients)
+
   return (
     <Stack>
       <Header />
@@ -58,8 +61,11 @@ function Clients() {
                       <IconButton color="error">
                         <DeleteIcon />
                       </IconButton>
-                      <IconButton color="success">
-                        <VisibilityIcon/>
+                      <IconButton
+                        color="success"
+                        onClick={() => navigate(`/resultados/${row.ci}`)}
+                      >
+                        <VisibilityIcon />
                       </IconButton>
                     </TableCell>
                   </TableRow>

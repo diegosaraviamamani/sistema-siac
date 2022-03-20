@@ -13,7 +13,8 @@ function App() {
       <Route path='/' element={<Query />} />
       <Route path='/login' element={!user ? <Login /> : <Navigate to='/clientes' />} />
       <Route path='/clientes' element={user ? <Clients /> : <Navigate to='/login' />} />
-      <Route path='/resultados' element={user ? <Results /> : <Navigate to='/login' />} />
+      <Route path='/resultados/:ci' element={user ? <Results /> : <Navigate to='/login' />} />
+      <Route path='*' element={<Navigate to='/' />} />
     </Routes>
   );
 }
