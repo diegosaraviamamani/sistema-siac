@@ -43,14 +43,6 @@ function Login() {
         >
           Aceptar
         </Button>
-        <Button
-          variant="contained"
-          color="error"
-          size="large"
-          onClick={() => signOut(firebaseAuth)}
-        >
-          Cerrar sesion
-        </Button>
       </Stack>
     </Container>
   )

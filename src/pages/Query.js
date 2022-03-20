@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Button, Container, Fab, Stack, TextField, Typography } from "@mui/material"
 import LoginIcon from '@mui/icons-material/Login';
+import { useNavigate } from "react-router-dom";
 
 const containerStyles = {
   display: 'flex',
@@ -17,6 +18,7 @@ const fabStyle = {
 
 function Query() {
   const [queryData, setQueryData] = useState({ order: "", ci: "" })
+  const navigate=useNavigate()
   return (
     <Container maxWidth="xs" sx={containerStyles}>
       <Stack spacing={2}>
@@ -43,7 +45,7 @@ function Query() {
           Aceptar
         </Button>
       </Stack>
-      <Fab sx={fabStyle} color="success">
+      <Fab sx={fabStyle} color="success"  onClick={() => navigate("/login")}>
         <LoginIcon color="white"/>
       </Fab>
     </Container>
