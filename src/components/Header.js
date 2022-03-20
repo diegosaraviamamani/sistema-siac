@@ -1,12 +1,9 @@
 import LogoutIcon from "@mui/icons-material/Logout"
 import { AppBar, Container, IconButton, Toolbar, Typography } from "@mui/material"
-import { useNavigate } from "react-router-dom"
+import { signOut } from "firebase/auth"
+import { firebaseAuth } from "../utils/firebaseConfig"
 
 function Header() {
-const navigate=useNavigate()
-function logout(){
-  navigate("/login")
-}
 
   return (
     <AppBar position="static">
@@ -16,7 +13,7 @@ function logout(){
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           SIAC
         </Typography>
-        <IconButton color="inherit" onClick={logout}>
+        <IconButton color="inherit"  onClick={() => signOut(firebaseAuth)}>
           <LogoutIcon />
         </IconButton>
       </Toolbar>

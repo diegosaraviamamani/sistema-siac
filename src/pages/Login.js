@@ -1,6 +1,6 @@
 import { Button, Container, Stack, TextField, Typography } from "@mui/material"
-import { useEffect, useState } from "react"
-import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth"
+import { useState } from "react"
+import { signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { firebaseAuth } from "../utils/firebaseConfig"
 
 const loginContainerStyles = {
@@ -17,13 +17,6 @@ function Login() {
   async function login() {
     await signInWithEmailAndPassword(firebaseAuth, credentials.email, credentials.password)
   }
-
-  useEffect(() => {
-    const salir = onAuthStateChanged(firebaseAuth, (user) => {
-      console.log(user)
-    })
-    return salir
-  }, [])
 
   return (
     <Container maxWidth="xs" sx={loginContainerStyles}>
@@ -49,14 +42,6 @@ function Login() {
           onClick={() => login()}
         >
           Aceptar
-        </Button>
-        <Button
-          variant="contained"
-          color="error"
-          size="large"
-          onClick={() => signOut(firebaseAuth)}
-        >
-          Cerrar sesion
         </Button>
       </Stack>
     </Container>
