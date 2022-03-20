@@ -18,11 +18,11 @@ function Results() {
   const [results, setresults] = useState([])
   const { ci } = useParams()
   async function getData() {
-    const result = await getDocs(query(collection(db, 'clients',ci, 'testResults')));
+    const result = await getDocs(query(collection(db, 'clients', ci, 'testResults')));
     setresults(result ? result.docs.map((c) => ({ order: c.id, ...c.data() })) : [])
   }
-  function todate(seconds){
-    const date=new Date(seconds*1000)
+  function todate(seconds) {
+    const date = new Date(seconds * 1000)
     return new Intl.DateTimeFormat('es-ES').format(date)
   }
   useEffect(() => {

@@ -1,6 +1,6 @@
 import { Button, Container, Stack, TextField, Typography } from "@mui/material"
 import { useState } from "react"
-import { signInWithEmailAndPassword, signOut } from "firebase/auth"
+import { signInWithEmailAndPassword } from "firebase/auth"
 import { firebaseAuth } from "../utils/firebaseConfig"
 
 const loginContainerStyles = {

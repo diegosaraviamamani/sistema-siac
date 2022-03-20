@@ -5,10 +5,9 @@ import { db } from "../utils/firebaseConfig";
 import { useEffect, useState } from "react";
 
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from '@mui/icons-material/Edit';
 import Switch from '@mui/material/Switch';
-import { Label, LabelImportant } from "@mui/icons-material";
+import { Label } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const containerStyles = {
   display: 'flex',
@@ -22,10 +21,12 @@ async function getData(setclients) {
 }
 function Clients() {
   const [clients, setclients] = useState([])
+  const navigate = useNavigate()
+
   useEffect(() => {
     getData(setclients)
   }, [])
-  console.log(clients)
+
   return (
     <Stack>
       <Header />
@@ -64,7 +65,10 @@ function Clients() {
                       </div>
                     </TableCell>
                     <TableCell align="right">
-                      <IconButton color="success">
+                      <IconButton
+                        color="success"
+                        onClick={() => navigate(`resultados/${row.ci}`)}
+                      >
                         <VisibilityIcon />
                       </IconButton>
                     </TableCell>
