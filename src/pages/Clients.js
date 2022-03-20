@@ -4,7 +4,9 @@ import Header from "../components/Header"
 import { db } from "../utils/firebaseConfig";
 import { useEffect, useState } from "react";
 
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from "@mui/icons-material/Delete";
+
 const containerStyles = {
   display: 'flex',
   flexDirection: 'column',
@@ -52,9 +54,14 @@ function Clients() {
                     <TableCell align="right">{row.name}</TableCell>
                     <TableCell align="right">{row.lastName}</TableCell>
                     <TableCell align="right">{row.phone}</TableCell>
-                    <TableCell align="right"><IconButton color="error">
-                      <DeleteIcon />
-                    </IconButton></TableCell>
+                    <TableCell align="right">
+                      <IconButton color="error">
+                        <DeleteIcon />
+                      </IconButton>
+                      <IconButton color="success">
+                        <VisibilityIcon/>
+                      </IconButton>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
