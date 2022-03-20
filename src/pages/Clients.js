@@ -67,7 +67,7 @@ function Clients() {
                     <TableCell align="right">
                       <IconButton
                         color="success"
-                        onClick={() => navigate(`resultados/${row.ci}`)}
+                        onClick={() => navigate(`/resultados/${row.ci}`)}
                       >
                         <VisibilityIcon />
                       </IconButton>
