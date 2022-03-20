@@ -1,4 +1,5 @@
 import { Container, Stack, Typography } from "@mui/material"
+import { useParams } from "react-router-dom"
 import Header from "../components/Header"
 
 const containerStyles = {
@@ -9,13 +10,15 @@ const containerStyles = {
 }
 
 function Results() {
+  const { ci } = useParams()
+  //await getDocs(query(collection(db, 'clients', ci, 'testResults')));
   return (
     <Stack>
       <Header />
       <Container maxWidth="lg" sx={containerStyles}>
         <Stack spacing={2}>
           <Typography variant="h5" align="center">
-            CLIENTES
+            RESULTADOS {ci}
           </Typography>
         </Stack>
       </Container>
