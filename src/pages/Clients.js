@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from '@mui/icons-material/Edit';
+import Switch from '@mui/material/Switch';
+import { Label, LabelImportant } from "@mui/icons-material";
 
 const containerStyles = {
   display: 'flex',
@@ -39,6 +42,7 @@ function Clients() {
                   <TableCell align="right">NOMBRE</TableCell>
                   <TableCell align="right">APELLIDO</TableCell>
                   <TableCell align="right">TELEFONO</TableCell>
+                  <TableCell align="right">ESTADO</TableCell>
                   <TableCell align="right">ACCIONES</TableCell>
                 </TableRow>
               </TableHead>
@@ -55,11 +59,13 @@ function Clients() {
                     <TableCell align="right">{row.lastName}</TableCell>
                     <TableCell align="right">{row.phone}</TableCell>
                     <TableCell align="right">
-                      <IconButton color="error">
-                        <DeleteIcon />
-                      </IconButton>
+                      <div>
+                        <Switch {...Label} checked={row.active} />
+                      </div>
+                    </TableCell>
+                    <TableCell align="right">
                       <IconButton color="success">
-                        <VisibilityIcon/>
+                        <VisibilityIcon />
                       </IconButton>
                     </TableCell>
                   </TableRow>
