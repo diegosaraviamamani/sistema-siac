@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Box, Modal, Typography, TextField, Button, Stack } from '@mui/material'
 import { db } from '../utils/firebaseConfig'
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, Timestamp } from "firebase/firestore";
 
 const style = {
   position: 'absolute',
@@ -32,6 +32,7 @@ export default function NewClientForm() {
       lastName: client.lastName,
       phone: client.phone,
       active: true,
+      createdAt: new Timestamp(Math.round(new Date().getTime() / 1000), 0)
     })
 
     setLoading(false)
