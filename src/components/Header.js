@@ -3,6 +3,8 @@ import { AppBar, Container, IconButton, Toolbar, Typography } from "@mui/materia
 import { signOut } from "firebase/auth"
 import { firebaseAuth } from "../utils/firebaseConfig"
 import NewClientForm from "./NewClientForm"
+import NewResultForm from "./NewResultForm"
+
 
 function Header() {
   return (
@@ -13,6 +15,7 @@ function Header() {
             SIAC
           </Typography>
           <NewClientForm />
+          <NewResultForm />
           <IconButton color="inherit" onClick={() => signOut(firebaseAuth)}>
             <LogoutIcon />
           </IconButton>
