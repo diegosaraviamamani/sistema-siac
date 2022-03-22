@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Box, Modal, Typography, TextField, Button, Stack } from '@mui/material'
 import { db } from '../utils/firebaseConfig'
 import { setDoc, doc } from "firebase/firestore";
@@ -16,23 +17,30 @@ const style = {
 };
 
 export default function NewClientForm() {
+  const { pathname } = useLocation()
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [client, setClient] = useState({ ci: '', name: '', lastName: '', phone: '' })
+
+
   async function createClient() {
+    setLoading(true)
     await setDoc(doc(db, 'clients', client.ci), {
       name: client.name,
       lastName: client.lastName,
       phone: client.phone,
       active: true,
     })
+
+    setLoading(false)
     handleClose()
   }
 
   return (
     <div>
-      <Button color="inherit" onClick={handleOpen}>Nuevo Cliente</Button>
+      {pathname.includes('clientes') && <Button color="inherit" onClick={handleOpen}>Nuevo Cliente</Button>}
       <Modal
         open={open}
         onClose={handleClose}
@@ -70,6 +78,7 @@ export default function NewClientForm() {
               variant="outlined"
             />
             <Button
+              disabled={loading}
               variant="contained"
               size="large"
               onClick={() => createClient()}
