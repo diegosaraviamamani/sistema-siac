@@ -58,7 +58,7 @@ function Results() {
                     </TableCell>
                     <TableCell align="right">{todate(row.createdAt.seconds)}</TableCell>
                     <TableCell align="right">{row.type}</TableCell>
-                    <TableCell align="right">{todate(row.uploadedAt.seconds)}</TableCell>
+                    <TableCell align="right">{row.uploadetAt && todate(row.uploadedAt.seconds)}</TableCell>
                     <TableCell align="right">
                       <IconButton color="error">
                         <DeleteIcon />
