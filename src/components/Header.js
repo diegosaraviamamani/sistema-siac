@@ -1,12 +1,17 @@
-import LogoutIcon from "@mui/icons-material/Logout"
-import { AppBar, Container, IconButton, Toolbar, Typography } from "@mui/material"
-import { signOut } from "firebase/auth"
-import { firebaseAuth } from "../utils/firebaseConfig"
-import NewClientForm from "./NewClientForm"
-import NewResultForm from "./NewResultForm"
-
+import LogoutIcon from '@mui/icons-material/Logout'
+import {
+  AppBar,
+  Container,
+  IconButton,
+  Toolbar,
+  Typography,
+} from '@mui/material'
+import authService from '../services/auth.service'
+import NewClientForm from './NewClientForm'
+import NewResultForm from './NewResultForm'
 
 function Header() {
+  const handleLogout = () => authService.logout()
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -16,7 +21,7 @@ function Header() {
           </Typography>
           <NewClientForm />
           <NewResultForm />
-          <IconButton color="inherit" onClick={() => signOut(firebaseAuth)}>
+          <IconButton color="inherit" onClick={handleLogout}>
             <LogoutIcon />
           </IconButton>
         </Toolbar>
