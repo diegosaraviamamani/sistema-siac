@@ -1,15 +1,11 @@
-import { useState } from 'react'
-import {
-  Button,
-  Container,
-  Fab,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material'
-import LoginIcon from '@mui/icons-material/Login'
+import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import storageService from '../services/storage.service'
+import { useForm } from 'react-hook-form'
+import { Button, Container, Fab, Stack, Typography } from '@mui/material'
+import LoginIcon from '@mui/icons-material/Login'
+import storageService from '../../services/storage.service'
+import { inputs, defaultValues } from './utils'
+import FormInputText from '../../components/FormInputText'
 
 const containerStyles = {
   display: 'flex',
@@ -26,24 +22,31 @@ const fabStyle = {
 
 function Query() {
   const [loading, setLoading] = useState(false)
-  const [queryData, setQueryData] = useState({ order: '', ci: '' })
   const navigate = useNavigate()
 
-  const handleQuery = async () => {
+  const { handleSubmit, reset, control } = useForm({ defaultValues })
+
+  const renderInputs = useCallback(
+    () =>
+      inputs.map((input, i) => (
+        <FormInputText key={i} {...input} control={control} />
+      )),
+    [control]
+  )
+
+  const handleQuery = async (data) => {
     try {
       setLoading(true)
-      const { ci, order } = queryData
+      const { ci, order } = data
       const url = await storageService.getFileUrl({ ci, order })
       window.open(url)
     } catch (error) {
       alert(error.message)
     } finally {
       setLoading(false)
+      reset()
     }
   }
-
-  const handleChange = (e) =>
-    setQueryData({ ...queryData, [e.target.name]: e.target.value })
 
   return (
     <Container maxWidth="xs" sx={containerStyles}>
@@ -51,25 +54,16 @@ function Query() {
         <Typography variant="h5" align="center">
           CONSULTA
         </Typography>
-        <TextField
-          name="ci"
-          value={queryData.ci}
-          onChange={handleChange}
-          label="Carnet de Identidad"
-          variant="outlined"
-        />
-        <TextField
-          name="order"
-          value={queryData.order}
-          onChange={handleChange}
-          label="Nro de Orden"
-          variant="outlined"
-        />
+        <Typography variant="caption" align="center">
+          Mantener activadas las ventanas emergentes en caso que el navegador
+          abra el PDF en otra ventana.
+        </Typography>
+        {renderInputs()}
         <Button
           disabled={loading}
           variant="contained"
           size="large"
-          onClick={handleQuery}
+          onClick={handleSubmit(handleQuery)}
         >
           Aceptar
         </Button>
