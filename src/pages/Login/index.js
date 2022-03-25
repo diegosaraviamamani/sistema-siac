@@ -3,6 +3,7 @@ import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import FormInputText from '../../components/FormInputText'
 import authService from '../../services/auth.service'
+import firebaseAuthErrorCodes from '../../utils/firebaseAuthErrorCodes'
 import { inputs, defaultValues } from './utils'
 
 const loginContainerStyles = {
@@ -25,8 +26,13 @@ function Login() {
   )
 
   async function login(data) {
-    await authService.login(data)
-    reset()
+    try {
+      await authService.login(data)
+    } catch (error) {
+      alert(firebaseAuthErrorCodes[error.code])
+    } finally {
+      reset()
+    }
   }
 
   useEffect(() => reset, [reset])
