@@ -7,7 +7,6 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material'
-import { Link } from 'react-router-dom'
 import authService from '../services/auth.service'
 import NewClientForm from './NewClientForm'
 import NewResultForm from './NewResultForm'
