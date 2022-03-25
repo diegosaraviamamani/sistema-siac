@@ -56,20 +56,18 @@ function Clients() {
             LISTA DE PACIENTES
           </Typography>
           <TableContainer component={Paper}>
+            <Stack padding={2}>
+              <TextField
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                label="Buscar paciente"
+                type="search"
+                placeholder="Puedes filtrar por cualquier campo"
+              />
+            </Stack>
+          </TableContainer>
+          <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableCell colSpan={6} align="center">
-                  <Stack>
-                    <TextField
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                      label="Buscar paciente"
-                      type="search"
-                      placeholder="Puedes filtrar por cualquier campo"
-                    />
-                  </Stack>
-                </TableCell>
-              </TableHead>
               <TableHead>
                 <TableRow>
                   <TableCell>N° C.I.</TableCell>

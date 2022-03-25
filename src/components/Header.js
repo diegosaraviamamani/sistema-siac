@@ -1,11 +1,13 @@
 import LogoutIcon from '@mui/icons-material/Logout'
 import {
   AppBar,
+  Box,
   Container,
   IconButton,
   Toolbar,
   Typography,
 } from '@mui/material'
+import { Link } from 'react-router-dom'
 import authService from '../services/auth.service'
 import NewClientForm from './NewClientForm'
 import NewResultForm from './NewResultForm'
@@ -16,9 +18,15 @@ function Header() {
     <AppBar position="static" sx={{ mb: 4 }}>
       <Container maxWidth="xl">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            SIAC
-          </Typography>
+          <Box sx={{ flexGrow: 1 }}>
+            <Typography
+              variant="h6"
+              sx={{ cursor: 'pointer' }}
+              component="span"
+            >
+              SIAC
+            </Typography>
+          </Box>
           <NewClientForm />
           <NewResultForm />
           <IconButton color="inherit" onClick={handleLogout}>
