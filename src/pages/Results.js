@@ -54,10 +54,10 @@ function Results() {
               <TableHead>
                 <TableRow>
                   <TableCell>N° ORDEN.</TableCell>
-                  <TableCell align="right">FECHA SOLICITUD</TableCell>
-                  <TableCell align="right">TIPO</TableCell>
-                  <TableCell align="right">FECHA DE RESULTADO</TableCell>
-                  <TableCell align="right">CARGAR</TableCell>
+                  <TableCell align="center">FECHA SOLICITUD</TableCell>
+                  <TableCell align="center">TIPO</TableCell>
+                  <TableCell align="center">FECHA DE RESULTADO</TableCell>
+                  <TableCell align="center">ACCIONES</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -67,12 +67,12 @@ function Results() {
                       <TableCell component="th" scope="row">
                         {row.order}
                       </TableCell>
-                      <TableCell align="right">{row.createdAt}</TableCell>
-                      <TableCell align="right">{row.type}</TableCell>
-                      <TableCell align="right">
+                      <TableCell align="center">{row.createdAt}</TableCell>
+                      <TableCell align="center">{row.type}</TableCell>
+                      <TableCell align="center">
                         {row.uploadedAt || 'En proceso'}
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell align="center">
                         <IconButton color="error" disabled={!row.uploadedAt}>
                           <DeleteIcon />
                         </IconButton>
