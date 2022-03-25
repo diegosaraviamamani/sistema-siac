@@ -58,8 +58,9 @@ function Clients() {
           <TextField
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            label="Buscar"
+            label="Buscar paciente"
             type="search"
+            placeholder="Puedes filtrar por cualquier campo"
           />
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
