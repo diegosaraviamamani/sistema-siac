@@ -29,6 +29,10 @@ function Clients() {
   const [clients, setClients] = useState([])
   const navigate = useNavigate()
 
+  const handleToggleStatus = async (ci, active) => {
+    await clientService.update(ci, { active: !active })
+  }
+
   useEffect(() => {
     const unsubscribe = clientService.getAll(setClients)
     return unsubscribe
@@ -67,7 +71,10 @@ function Clients() {
                     <TableCell>{row.name}</TableCell>
                     <TableCell>{row.phone}</TableCell>
                     <TableCell align="center">
-                      <Switch checked={row.active} />
+                      <Switch
+                        checked={row.active}
+                        onClick={() => handleToggleStatus(row.ci, row.active)}
+                      />
                     </TableCell>
                     <TableCell align="center">
                       <IconButton
