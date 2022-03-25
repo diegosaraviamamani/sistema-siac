@@ -12,6 +12,7 @@ import {
   TableRow,
   Typography,
   Switch,
+  TextField,
 } from '@mui/material'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import { useNavigate } from 'react-router-dom'
@@ -27,11 +28,19 @@ const containerStyles = {
 
 function Clients() {
   const [clients, setClients] = useState([])
+  const [search, setSearch] = useState('')
   const navigate = useNavigate()
 
   const handleToggleStatus = async (ci, active) => {
     await clientService.update(ci, { active: !active })
   }
+
+  const filteredClients = clients.filter((client) => {
+    const keys = Object.keys(client)
+    return keys.some((key) => {
+      return client[key].toString().toLowerCase().includes(search.toLowerCase())
+    })
+  })
 
   useEffect(() => {
     const unsubscribe = clientService.getAll(setClients)
@@ -46,6 +55,12 @@ function Clients() {
           <Typography variant="h5" align="center" sx={{ letterSpacing: 5 }}>
             LISTA DE PACIENTES
           </Typography>
+          <TextField
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            label="Buscar"
+            type="search"
+          />
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
@@ -59,7 +74,7 @@ function Clients() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {clients.map((row) => (
+                {(search === '' ? clients : filteredClients).map((row) => (
                   <TableRow
                     key={row.ci}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
