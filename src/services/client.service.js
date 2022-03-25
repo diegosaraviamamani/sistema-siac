@@ -10,7 +10,7 @@ import {
   onSnapshot,
 } from 'firebase/firestore'
 import { db } from '../utils/firebaseConfig'
-import { dateFormat } from '../utils'
+import { dateFormat, timestampFormat } from '../utils'
 
 const clientMapper = (client) => ({
   ci: client.id,
@@ -23,7 +23,7 @@ const clientMapper = (client) => ({
 
 const clientsCollection = collection(db, 'clients')
 const clientDoc = (ci) => doc(clientsCollection, ci)
-const orderedClients = query(clientsCollection, orderBy('createdAt', 'desc'))
+const orderedClients = query(clientsCollection, orderBy('lastName', 'asc'))
 
 // CONSULTA
 const getAll = (setClients) =>
@@ -46,8 +46,12 @@ const getOne = async (ci) => {
 const add = async (ci, client) => {
   try {
     const doc = await getOne(ci)
-    if (doc) throw new Error('ya existe un cliente con ese CI')
-    return await setDoc(clientDoc(ci), client)
+    if (doc) throw new Error('Ya existe un cliente con ese CI')
+    return await setDoc(clientDoc(ci), {
+      ...client,
+      active: true,
+      createdAt: timestampFormat(),
+    })
   } catch (error) {
     throw error
   }

@@ -1,30 +1,37 @@
-import { collection, getDocs, query } from "firebase/firestore";
-import { Container, IconButton, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
-import Header from "../components/Header"
-import { db } from "../utils/firebaseConfig";
-import { useEffect, useState } from "react";
-
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import Switch from '@mui/material/Switch';
-import { Label } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import {
+  Container,
+  IconButton,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  Switch,
+} from '@mui/material'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import { useNavigate } from 'react-router-dom'
+import Header from '../components/Header'
+import clientService from '../services/client.service'
 
 const containerStyles = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'strech',
-  minHeight: '100vh'
+  height: '100%',
 }
-async function getData(setclients) {
-  const result = await getDocs(query(collection(db, 'clients')));
-  setclients(result ? result.docs.map((c) => ({ ci: c.id, ...c.data() })) : [])
-}
+
 function Clients() {
-  const [clients, setclients] = useState([])
+  const [clients, setClients] = useState([])
   const navigate = useNavigate()
 
   useEffect(() => {
-    getData(setclients)
+    const unsubscribe = clientService.getAll(setClients)
+    return unsubscribe
   }, [])
 
   return (
@@ -32,19 +39,19 @@ function Clients() {
       <Header />
       <Container maxWidth="lg" sx={containerStyles}>
         <Stack spacing={2}>
-          <Typography variant="h5" align="center">
-            LISTA DE CLIENTES
+          <Typography variant="h5" align="center" sx={{ letterSpacing: 5 }}>
+            LISTA DE PACIENTES
           </Typography>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell>N° C.I.</TableCell>
-                  <TableCell align="right">NOMBRE</TableCell>
-                  <TableCell align="right">APELLIDO</TableCell>
-                  <TableCell align="right">TELEFONO</TableCell>
-                  <TableCell align="right">ESTADO</TableCell>
-                  <TableCell align="right">ACCIONES</TableCell>
+                  <TableCell>APELLIDO</TableCell>
+                  <TableCell>NOMBRE</TableCell>
+                  <TableCell>TELEFONO</TableCell>
+                  <TableCell align="center">ESTADO</TableCell>
+                  <TableCell align="center">ACCIONES</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -56,15 +63,13 @@ function Clients() {
                     <TableCell component="th" scope="row">
                       {row.ci}
                     </TableCell>
-                    <TableCell align="right">{row.name}</TableCell>
-                    <TableCell align="right">{row.lastName}</TableCell>
-                    <TableCell align="right">{row.phone}</TableCell>
-                    <TableCell align="right">
-                      <div>
-                        <Switch {...Label} checked={row.active} />
-                      </div>
+                    <TableCell>{row.lastName}</TableCell>
+                    <TableCell>{row.name}</TableCell>
+                    <TableCell>{row.phone}</TableCell>
+                    <TableCell align="center">
+                      <Switch checked={row.active} />
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">
                       <IconButton
                         color="success"
                         onClick={() => navigate(`/resultados/${row.ci}`)}
@@ -77,12 +82,9 @@ function Clients() {
               </TableBody>
             </Table>
           </TableContainer>
-
         </Stack>
-
       </Container>
     </Stack>
-
   )
 }
 export default Clients

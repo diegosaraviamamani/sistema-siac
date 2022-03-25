@@ -13,7 +13,7 @@ import NewResultForm from './NewResultForm'
 function Header() {
   const handleLogout = () => authService.logout()
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ mb: 4 }}>
       <Container maxWidth="xl">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
