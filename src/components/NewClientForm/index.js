@@ -33,7 +33,10 @@ export default function NewClientForm() {
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const handleClose = () => {
+    setOpen(false)
+    reset()
+  }
 
   const renderInputs = useCallback(
     () =>
@@ -53,7 +56,6 @@ export default function NewClientForm() {
       }
       await clientService.add(data.ci, client)
       alert('Cliente creado correctamente')
-      reset()
       handleClose()
     } catch (error) {
       alert(error.message)
