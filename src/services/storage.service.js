@@ -11,11 +11,12 @@ import testService from './test.service'
 
 const getPathReference = ({ ci, order }) => ref(storage, `${ci}/${order}.pdf`)
 
-const getFileUrl = async ({ ci, order }) => {
+const getFileUrl = async ({ ci, order, omitActive = false }) => {
   try {
     const client = await clientService.getOne(ci)
     if (!client) throw new Error('No existe un cliente con ese CI')
-    if (!client.active) throw new Error('El cliente no esta activo')
+    if (!omitActive && !client.active)
+      throw new Error('El cliente no esta activo')
     const test = await testService.getOne(ci, order)
     if (!test) throw new Error('No existe un test con ese nro de orden')
     if (!test.uploadedAt)
@@ -27,19 +28,22 @@ const getFileUrl = async ({ ci, order }) => {
   }
 }
 
-const uploadFile = async (queryData, file) => {
+const uploadFile = async ({ ci, order }, file) => {
   try {
-    const resultUpload = await uploadBytes(getPathReference(queryData), file)
-    await clientService.update(queryData.ci, { uploadedAt: timestampFormat() })
+    const pathData = { ci, order }
+    const resultUpload = await uploadBytes(getPathReference(pathData), file)
+    await testService.update(ci, order, { uploadedAt: timestampFormat() })
     return resultUpload
   } catch (error) {
     throw error
   }
 }
-const deleteFile = async (queryData) => {
+const deleteFile = async ({ ci, order }) => {
   try {
-    await deleteObject(getPathReference(queryData))
-    await testService.update(queryData.ci, { uploadedAt: null })
+    const pathData = { ci, order }
+    await deleteObject(getPathReference(pathData))
+    const testData = { uploadedAt: null }
+    await testService.update(ci, order, testData)
   } catch (error) {
     throw error
   }

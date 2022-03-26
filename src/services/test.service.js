@@ -1,4 +1,4 @@
-import { db } from '../utils/firebaseConfig'
+import { db, storage } from '../utils/firebaseConfig'
 import {
   collection,
   query,
@@ -11,6 +11,7 @@ import {
   onSnapshot,
 } from 'firebase/firestore'
 import { dateFormat, timestampFormat } from '../utils'
+import { deleteObject, ref } from 'firebase/storage'
 
 const testMapper = (test) => ({
   order: test.id,
@@ -57,7 +58,16 @@ const add = async ({ ci, order, type }) => {
 }
 
 // REMOVE
-const remove = (ci, order) => deleteDoc(testDoc(ci, order))
+const remove = async (ci, order) => {
+  try {
+    const { uploadedAt } = await getOne(ci, order)
+    await deleteDoc(testDoc(ci, order))
+    const fileReference = ref(storage, `${ci}/${order}.pdf`)
+    if (uploadedAt) deleteObject(fileReference)
+  } catch (error) {
+    throw error
+  }
+}
 
 // UPDATE
 const update = (ci, order, test) => updateDoc(testDoc(ci, order), test)

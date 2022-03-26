@@ -15,10 +15,9 @@ import {
   Typography,
 } from '@mui/material'
 import Header from '../components/Header'
-import VisibilityIcon from '@mui/icons-material/Visibility'
 import DeleteIcon from '@mui/icons-material/Delete'
-import UploadFileIcon from '@mui/icons-material/UploadFile'
 import testService from './../services/test.service'
+import TestOptionDropown from '../components/TestOptionDropdown'
 
 const containerStyles = {
   display: 'flex',
@@ -28,9 +27,9 @@ const containerStyles = {
   padding: 4,
 }
 function Results() {
-  const [results, setResults] = useState([])
-  const { ci } = useParams()
   const navigate = useNavigate()
+  const { ci } = useParams()
+  const [results, setResults] = useState([])
 
   const handleReturn = () => navigate(-1)
 
@@ -38,6 +37,17 @@ function Results() {
     const unsubscribe = testService.getAll(ci, setResults)
     return unsubscribe
   }, [ci])
+
+  const handleDelete = async (order) => {
+    if (window.confirm('¿Está seguro de eliminar la prueba?')) {
+      try {
+        await testService.remove(ci, order)
+        window.alert('Prueba eliminada')
+      } catch (error) {
+        window.alert(error.message)
+      }
+    }
+  }
 
   return (
     <Stack>
@@ -71,18 +81,21 @@ function Results() {
                       <TableCell align="center">{row.createdAt}</TableCell>
                       <TableCell align="center">{row.type}</TableCell>
                       <TableCell align="center">
-                        {row.uploadedAt || 'En proceso'}
+                        <Typography
+                          variant="body2"
+                          color={row.uploadedAt ? 'limegreen' : 'orange'}
+                        >
+                          {row.uploadedAt || 'En proceso'}
+                        </Typography>
                       </TableCell>
                       <TableCell align="center">
-                        <IconButton color="error" disabled={!row.uploadedAt}>
+                        <IconButton
+                          color="error"
+                          onClick={() => handleDelete(row.order)}
+                        >
                           <DeleteIcon />
                         </IconButton>
-                        <IconButton color="success" disabled={!row.uploadedAt}>
-                          <VisibilityIcon />
-                        </IconButton>
-                        <IconButton color="primary" disabled={row.uploadedAt}>
-                          <UploadFileIcon />
-                        </IconButton>
+                        <TestOptionDropown ci={ci} {...row} />
                       </TableCell>
                     </TableRow>
                   ))

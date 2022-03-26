@@ -38,7 +38,7 @@ export default function NewClientForm() {
   }
 
   return (
-    <div>
+    <React.Fragment>
       {pathname.includes('resultados') && (
         <Button color="inherit" onClick={handleOpen}>
           Nueva Prueba
@@ -61,6 +61,6 @@ export default function NewClientForm() {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </React.Fragment>
   )
 }

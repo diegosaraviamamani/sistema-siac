@@ -7,12 +7,14 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 import authService from '../services/auth.service'
 import NewClientForm from './NewClientForm'
 import NewResultForm from './NewResultForm'
 
 function Header() {
   const handleLogout = () => authService.logout()
+  const navigate = useNavigate()
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -22,6 +24,7 @@ function Header() {
               variant="h6"
               sx={{ cursor: 'pointer' }}
               component="span"
+              onClick={() => navigate('/')}
             >
               SIAC
             </Typography>
