@@ -14,7 +14,7 @@ import NewResultForm from './NewResultForm'
 function Header() {
   const handleLogout = () => authService.logout()
   return (
-    <AppBar position="static" sx={{ mb: 4 }}>
+    <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar>
           <Box sx={{ flexGrow: 1 }}>

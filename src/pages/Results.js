@@ -25,6 +25,7 @@ const containerStyles = {
   flexDirection: 'column',
   alignItems: 'strech',
   height: '100%',
+  padding: 4,
 }
 function Results() {
   const [results, setResults] = useState([])

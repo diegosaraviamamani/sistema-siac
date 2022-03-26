@@ -14,16 +14,17 @@ import {
   Switch,
   TextField,
 } from '@mui/material'
-import VisibilityIcon from '@mui/icons-material/Visibility'
 import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import clientService from '../services/client.service'
+import { Visibility as VisibilityIcon } from '@mui/icons-material'
 
 const containerStyles = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'strech',
   height: '100%',
+  padding: 4,
 }
 
 function Clients() {
@@ -80,10 +81,7 @@ function Clients() {
               </TableHead>
               <TableBody>
                 {(search === '' ? clients : filteredClients).map((row) => (
-                  <TableRow
-                    key={row.ci}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
+                  <TableRow key={row.ci}>
                     <TableCell component="th" scope="row">
                       {row.ci}
                     </TableCell>
@@ -94,6 +92,7 @@ function Clients() {
                       <Switch
                         checked={row.active}
                         onClick={() => handleToggleStatus(row.ci, row.active)}
+                        inputProps={{ 'aria-label': 'status-switch' }}
                       />
                     </TableCell>
                     <TableCell align="center">
