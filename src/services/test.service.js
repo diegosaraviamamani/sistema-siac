@@ -10,7 +10,7 @@ import {
   orderBy,
   onSnapshot,
 } from 'firebase/firestore'
-import { dateFormat } from '../utils'
+import { dateFormat, timestampFormat } from '../utils'
 
 const testMapper = (test) => ({
   order: test.id,
@@ -42,13 +42,15 @@ const getOne = async (ci, order) => {
 }
 
 // ALTA
-const add = async (ci, order, test) => {
+const add = async ({ ci, order, type }) => {
+  const newTest = {
+    type: type.toUpperCase(),
+    createdAt: timestampFormat(),
+  }
   try {
     const doc = await getOne(ci, order)
-    if (doc) {
-      throw new Error('Ya existe un test con ese número de orden')
-    }
-    return await setDoc(testDoc(ci), test)
+    if (doc) throw new Error('Ya existe un test con ese número de orden')
+    return await setDoc(testDoc(ci, order), newTest)
   } catch (error) {
     throw error
   }

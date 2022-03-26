@@ -44,14 +44,15 @@ const getOne = async (ci) => {
 
 // ALTA
 const add = async (ci, client) => {
+  const newClient = {
+    ...client,
+    active: true,
+    createdAt: timestampFormat(),
+  }
   try {
     const doc = await getOne(ci)
     if (doc) throw new Error('Ya existe un cliente con ese CI')
-    return await setDoc(clientDoc(ci), {
-      ...client,
-      active: true,
-      createdAt: timestampFormat(),
-    })
+    return await setDoc(clientDoc(ci), newClient)
   } catch (error) {
     throw error
   }
