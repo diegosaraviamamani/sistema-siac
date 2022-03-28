@@ -20,12 +20,14 @@ export default function EditClientForm({ data }) {
     defaultValues: data,
     inputs,
     onSubmit: async (data) => {
-      try {
-        const { ci, name, lastName, phone } = data
-        await clientService.update(ci, { name, lastName, phone })
-        handleClose()
-      } catch (error) {
-        throw error
+      if (window.confirm('¿Esta seguro que desea actualizar la información?')) {
+        try {
+          const { ci, name, lastName, phone } = data
+          await clientService.update(ci, { name, lastName, phone })
+          handleClose()
+        } catch (error) {
+          throw error
+        }
       }
     },
   })
