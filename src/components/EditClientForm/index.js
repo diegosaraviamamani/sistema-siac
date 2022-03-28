@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
 import {
   Button,
   Stack,
@@ -8,22 +7,22 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  IconButton,
 } from '@mui/material'
+import { Edit as EditIcon } from '@mui/icons-material'
 import useCustomForm from '../../hooks/useRenderForm'
-import { defaultValues, inputs } from './utils'
-import testService from '../../services/test.service'
+import { inputs } from './utils'
+import clientService from '../../services/client.service'
 
-export default function NewResultForm() {
-  const { pathname } = useLocation()
-  const { ci } = useParams()
+export default function EditClientForm({ data }) {
   const [open, setOpen] = useState(false)
   const { handleSubmit, isSubmitting, renderInputs, reset } = useCustomForm({
-    defaultValues,
+    defaultValues: data,
     inputs,
     onSubmit: async (data) => {
       try {
-        const { order, type } = data
-        await testService.add({ ci, order, type })
+        const { ci, name, lastName, phone } = data
+        await clientService.update(ci, { name, lastName, phone })
         handleClose()
       } catch (error) {
         throw error
@@ -39,13 +38,13 @@ export default function NewResultForm() {
 
   return (
     <React.Fragment>
-      {pathname.includes('resultados') && (
-        <Button color="inherit" onClick={handleOpen}>
-          Nueva Prueba
-        </Button>
-      )}
+      {
+        <IconButton color="warning" onClick={handleOpen}>
+          <EditIcon />
+        </IconButton>
+      }
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-        <DialogTitle>NUEVA PRUEBA</DialogTitle>
+        <DialogTitle>EDITAR PACIENTE</DialogTitle>
         <DialogContent>
           <DialogContentText />
           <Stack spacing={2} marginY={2}>

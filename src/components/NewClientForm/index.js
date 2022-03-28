@@ -1,110 +1,70 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import {
-  Box,
-  Modal,
-  Typography,
   Button,
   Stack,
-  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
-import { useForm } from 'react-hook-form'
-import { inputs, defaultValues } from './utils'
-import FormInputText from '../FormInputText'
+import useCustomForm from '../../hooks/useRenderForm'
+import { defaultValues, inputs } from './utils'
 import clientService from '../../services/client.service'
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-}
-
-export default function NewClientForm() {
-  const { handleSubmit, reset, control } = useForm({ defaultValues })
-
+export default function NewResultForm() {
   const { pathname } = useLocation()
-  const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
+  const { handleSubmit, isSubmitting, renderInputs, reset } = useCustomForm({
+    defaultValues,
+    inputs,
+    onSubmit: async (data) => {
+      try {
+        const client = {
+          name: data.name.toUpperCase(),
+          lastName: data.lastName.toUpperCase(),
+          phone: data.phone,
+        }
+        await clientService.add(data.ci, client)
+        alert('Cliente creado correctamente')
+        handleClose()
+      } catch (error) {
+        throw error
+      }
+    },
+  })
+
   const handleOpen = () => setOpen(true)
   const handleClose = () => {
     setOpen(false)
     reset()
   }
 
-  const renderInputs = useCallback(
-    () =>
-      inputs.map((input, i) => (
-        <FormInputText key={i} {...input} control={control} />
-      )),
-    [control]
-  )
-
-  async function createClient(data) {
-    try {
-      setLoading(true)
-      const client = {
-        name: data.name.toUpperCase(),
-        lastName: data.lastName.toUpperCase(),
-        phone: data.phone,
-      }
-      await clientService.add(data.ci, client)
-      alert('Cliente creado correctamente')
-      handleClose()
-    } catch (error) {
-      alert(error.message)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  useEffect(() => reset, [reset])
-
   return (
-    <div>
+    <React.Fragment>
       {pathname.includes('clientes') && (
         <Button color="inherit" onClick={handleOpen}>
           Nuevo Paciente
         </Button>
       )}
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-      >
-        <Box sx={style}>
-          <Stack spacing={2}>
-            <IconButton onClick={handleClose} sx={{ alignSelf: 'end' }}>
-              <CloseIcon />
-            </IconButton>
-            <Typography
-              id="modal-title"
-              variant="h6"
-              component="h2"
-              align="center"
-              sx={{ marginTop: '0 !important' }}
-            >
-              Nuevo Paciente
-            </Typography>
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+        <DialogTitle>NUEVA PACIENTE</DialogTitle>
+        <DialogContent>
+          <DialogContentText />
+          <Stack spacing={2} marginY={2}>
             {renderInputs()}
-            <Button
-              disabled={loading}
-              variant="contained"
-              size="large"
-              onClick={handleSubmit(createClient)}
-            >
-              Guardar
-            </Button>
           </Stack>
-        </Box>
-      </Modal>
-    </div>
+        </DialogContent>
+        <DialogActions>
+          <Button color="error" onClick={handleClose}>
+            Cancelar
+          </Button>
+          <Button disabled={isSubmitting} size="large" onClick={handleSubmit}>
+            Guardar
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </React.Fragment>
   )
 }

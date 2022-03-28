@@ -62,7 +62,18 @@ const add = async (ci, client) => {
 const remove = (ci) => deleteDoc(clientDoc(ci))
 
 // UPDATE
-const update = (ci, client) => updateDoc(clientDoc(ci), client)
+const update = async (ci, client) => {
+  try {
+    const editedClient = {
+      name: client.name.toUpperCase(),
+      lastName: client.lastName.toUpperCase(),
+      phone: client.phone,
+    }
+    await updateDoc(clientDoc(ci), editedClient)
+  } catch (error) {
+    throw error
+  }
+}
 
 const clientService = { getAll, getOne, add, remove, update }
 export default clientService

@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import clientService from '../services/client.service'
 import { Visibility as VisibilityIcon } from '@mui/icons-material'
+import EditClientForm from '../components/EditClientForm'
 
 const containerStyles = {
   display: 'flex',
@@ -96,6 +97,14 @@ function Clients() {
                       />
                     </TableCell>
                     <TableCell align="center">
+                      <EditClientForm
+                        data={{
+                          ci: row.ci,
+                          name: row.name,
+                          lastName: row.lastName,
+                          phone: row.phone,
+                        }}
+                      />
                       <IconButton
                         color="success"
                         onClick={() => navigate(`/resultados/${row.ci}`)}
