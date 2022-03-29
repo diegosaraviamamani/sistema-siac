@@ -15,6 +15,7 @@ import storageService from '../../services/storage.service'
 import { inputs, defaultValues } from './utils'
 import FormInputText from '../../components/FormInputText'
 import styled from '@emotion/styled'
+import logo from '../Imagen.jpg'
 
 const containerStyles = {
   display: 'flex',
@@ -67,6 +68,7 @@ function Query() {
   return (
     <Container sx={containerStyles}>
       <Container maxWidth="xs">
+      <img src={logo} alt="logo" height={'330px'} />
         <Stack spacing={2}>
           <Typography variant="h5" align="center">
             CONSULTA

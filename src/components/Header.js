@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import authService from '../services/auth.service'
 import NewClientForm from './NewClientForm'
 import NewResultForm from './NewResultForm'
+import logo from './Imagen.jpg'
 
 function Header() {
   const handleLogout = () => authService.logout()
@@ -26,7 +27,7 @@ function Header() {
               component="span"
               onClick={() => navigate('/')}
             >
-              SIAC
+              <img src={logo} alt="logo" height={'50px'} />
             </Typography>
           </Box>
           <NewClientForm />
