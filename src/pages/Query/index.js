@@ -21,6 +21,7 @@ import reloj from "./reloj.jpg"
 import logo from '../Imagen.jpg'
 import iconoface from './iconoface.ico'
 import iconowat from './iconowat.ico'
+import imagen from './images.png'
 
 const containerStyles = {
   display: 'flex',
@@ -123,7 +124,13 @@ function Query() {
 
             </Grid>
             <Grid item xs={4}>
-              <Item>Ubicación</Item>
+              <Item>
+                <h2>ubicacion</h2>
+                <img src={imagen} alt="imagen" height="100 px" />
+                <p>Estamos ubicados en</p>
+                <p>Calle: Villa Tunari Entre Incachaqui y Calle: Chapare </p>
+                <p>Cochabamba-Bolivia:</p>
+              </Item>
             </Grid>
           </Grid>
         </Grid>
