@@ -16,7 +16,7 @@ function Header() {
   const handleLogout = () => authService.logout()
   const navigate = useNavigate()
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: '#eb7d26' }}>
       <Container maxWidth="xl">
         <Toolbar>
           <Box sx={{ flexGrow: 1 }}>
