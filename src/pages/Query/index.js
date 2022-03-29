@@ -15,6 +15,7 @@ import storageService from '../../services/storage.service'
 import { inputs, defaultValues } from './utils'
 import FormInputText from '../../components/FormInputText'
 import styled from '@emotion/styled'
+import reloj from "./reloj.jpg"
 
 const containerStyles = {
   display: 'flex',
@@ -96,7 +97,16 @@ function Query() {
               <Item>Información de contacto</Item>
             </Grid>
             <Grid item xs={4}>
-              <Item>Horarios de atencion</Item>
+              <Item><h2>Horarios de Atención</h2>
+
+              <img src={reloj} alt="reloj" height="100 px"/>
+              <p>Nuestros horarios de atención son</p>
+              <p>de Lunes a Sábado en los horarios  </p>
+              <p>establecidos a continuación:</p>
+              <p><b>Lunes a Viernes: </b>8:00 - 19:00 Hrs.</p>
+              <p><b>Sábados: </b>8:00 - 12:30 Hrs.</p>
+              </Item>
+    
             </Grid>
             <Grid item xs={4}>
               <Item>Ubicación</Item>
