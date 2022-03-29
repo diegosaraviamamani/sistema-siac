@@ -1,4 +1,4 @@
-import { Button, Container, Stack, Typography } from '@mui/material'
+import { Button, Container, Paper, Stack, Typography } from '@mui/material'
 import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import FormInputText from '../../components/FormInputText'
@@ -39,7 +39,8 @@ function Login() {
 
   return (
     <Container maxWidth="xs" sx={loginContainerStyles}>
-      <Stack spacing={2}>
+      <Paper>
+      <Stack spacing={2} padding={4}>
         <Typography variant="h5" align="center">
           INICIAR SESION
         </Typography>
@@ -48,6 +49,7 @@ function Login() {
           Aceptar
         </Button>
       </Stack>
+      </Paper>
     </Container>
   )
 }

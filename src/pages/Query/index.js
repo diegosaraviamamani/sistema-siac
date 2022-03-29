@@ -74,24 +74,26 @@ function Query() {
     <Container sx={containerStyles}>
       <Container maxWidth="xs">
         <img src={logo} alt="logo" height={'330px'} />
-        <Stack spacing={2}>
-          <Typography variant="h5" align="center">
-            CONSULTA
-          </Typography>
-          <Typography variant="caption" align="center">
-            Mantener activadas las ventanas emergentes en caso que el navegador
-            abra el PDF en otra ventana.
-          </Typography>
-          {renderInputs()}
-          <Button
-            disabled={loading}
-            variant="contained"
-            size="large"
-            onClick={handleSubmit(handleQuery)}
-          >
-            Aceptar
-          </Button>
-        </Stack>
+        <Paper>
+          <Stack spacing={2} padding={4}>
+            <Typography variant="h5" align="center">
+              CONSULTA
+            </Typography>
+            <Typography variant="caption" align="center">
+              Mantener activadas las ventanas emergentes en caso que el navegador
+              abra el PDF en otra ventana.
+            </Typography>
+            {renderInputs()}
+            <Button
+              disabled={loading}
+              variant="contained"
+              size="large"
+              onClick={handleSubmit(handleQuery)}
+            >
+              Aceptar
+            </Button>
+          </Stack>
+        </Paper>
         <Fab sx={fabStyle} color="success" onClick={() => navigate('/login')}>
           <LoginIcon color="white" />
         </Fab>
