@@ -15,6 +15,8 @@ import storageService from '../../services/storage.service'
 import { inputs, defaultValues } from './utils'
 import FormInputText from '../../components/FormInputText'
 import styled from '@emotion/styled'
+import reloj from "./reloj.jpg"
+import logo from '../Imagen.jpg'
 
 const containerStyles = {
   display: 'flex',
@@ -67,25 +69,26 @@ function Query() {
   return (
     <Container sx={containerStyles}>
       <Container maxWidth="xs">
+        <img src={logo} alt="logo" height={'330px'} />
         <Paper>
-        <Stack spacing={2} padding={4}>
-          <Typography variant="h5" align="center">
-            CONSULTA
-          </Typography>
-          <Typography variant="caption" align="center">
-            Mantener activadas las ventanas emergentes en caso que el navegador
-            abra el PDF en otra ventana.
-          </Typography>
-          {renderInputs()}
-          <Button
-            disabled={loading}
-            variant="contained"
-            size="large"
-            onClick={handleSubmit(handleQuery)}
-          >
-            Aceptar
-          </Button>
-        </Stack>
+          <Stack spacing={2} padding={4}>
+            <Typography variant="h5" align="center">
+              CONSULTA
+            </Typography>
+            <Typography variant="caption" align="center">
+              Mantener activadas las ventanas emergentes en caso que el navegador
+              abra el PDF en otra ventana.
+            </Typography>
+            {renderInputs()}
+            <Button
+              disabled={loading}
+              variant="contained"
+              size="large"
+              onClick={handleSubmit(handleQuery)}
+            >
+              Aceptar
+            </Button>
+          </Stack>
         </Paper>
         <Fab sx={fabStyle} color="success" onClick={() => navigate('/login')}>
           <LoginIcon color="white" />
@@ -98,7 +101,16 @@ function Query() {
               <Item>Información de contacto</Item>
             </Grid>
             <Grid item xs={4}>
-              <Item>Horarios de atencion</Item>
+              <Item><h2>Horarios de Atención</h2>
+
+                <img src={reloj} alt="reloj" height="100 px" />
+                <p>Nuestros horarios de atención son</p>
+                <p>de Lunes a Sábado en los horarios  </p>
+                <p>establecidos a continuación:</p>
+                <p><b>Lunes a Viernes: </b>8:00 - 19:00 Hrs.</p>
+                <p><b>Sábados: </b>8:00 - 12:30 Hrs.</p>
+              </Item>
+
             </Grid>
             <Grid item xs={4}>
               <Item>Ubicación</Item>
