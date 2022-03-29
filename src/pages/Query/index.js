@@ -1,5 +1,7 @@
 import { useCallback, useState } from 'react'
+
 import { useNavigate } from 'react-router-dom'
+
 import { useForm } from 'react-hook-form'
 import {
   Button,
@@ -17,6 +19,8 @@ import FormInputText from '../../components/FormInputText'
 import styled from '@emotion/styled'
 import reloj from "./reloj.jpg"
 import logo from '../Imagen.jpg'
+import iconoface from './iconoface.ico'
+import iconowat from './iconowat.ico'
 
 const containerStyles = {
   display: 'flex',
@@ -69,7 +73,7 @@ function Query() {
   return (
     <Container sx={containerStyles}>
       <Container maxWidth="xs">
-      <img src={logo} alt="logo" height={'330px'} />
+        <img src={logo} alt="logo" height={'330px'} />
         <Stack spacing={2}>
           <Typography variant="h5" align="center">
             CONSULTA
@@ -96,19 +100,25 @@ function Query() {
         <Grid container justify="center">
           <Grid container spacing={2}>
             <Grid item xs={4}>
-              <Item>Información de contacto</Item>
+              <Item><h2>Informacion de contacto</h2>
+
+                <img src={iconoface} alt="iconoface" height="70 px" />
+                <p>SIAC SALUD INTEGRAL Y ANALISIS CLINICO</p>
+                <img src={iconowat} alt="iconowat" height="70 px" />
+                <p>TELEFONO DE CONTACTO:76400025 </p>
+              </Item>
             </Grid>
             <Grid item xs={4}>
               <Item><h2>Horarios de Atención</h2>
 
-              <img src={reloj} alt="reloj" height="100 px"/>
-              <p>Nuestros horarios de atención son</p>
-              <p>de Lunes a Sábado en los horarios  </p>
-              <p>establecidos a continuación:</p>
-              <p><b>Lunes a Viernes: </b>8:00 - 19:00 Hrs.</p>
-              <p><b>Sábados: </b>8:00 - 12:30 Hrs.</p>
+                <img src={reloj} alt="reloj" height="100 px" />
+                <p>Nuestros horarios de atención son</p>
+                <p>de Lunes a Sábado en los horarios  </p>
+                <p>establecidos a continuación:</p>
+                <p><b>Lunes a Viernes: </b>8:00 - 19:00 Hrs.</p>
+                <p><b>Sábados: </b>8:00 - 12:30 Hrs.</p>
               </Item>
-    
+
             </Grid>
             <Grid item xs={4}>
               <Item>Ubicación</Item>
