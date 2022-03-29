@@ -125,7 +125,7 @@ function Query() {
             </Grid>
             <Grid item xs={4}>
               <Item>
-                <h2>ubicacion</h2>
+                <h2>Ubicación</h2>
                 <img src={imagen} alt="imagen" height="100 px" />
                 <p>Estamos ubicados en</p>
                 <p>Calle: Villa Tunari Entre Incachaqui y Calle: Chapare </p>
