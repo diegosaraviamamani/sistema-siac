@@ -67,7 +67,8 @@ function Query() {
   return (
     <Container sx={containerStyles}>
       <Container maxWidth="xs">
-        <Stack spacing={2}>
+        <Paper>
+        <Stack spacing={2} padding={4}>
           <Typography variant="h5" align="center">
             CONSULTA
           </Typography>
@@ -85,6 +86,7 @@ function Query() {
             Aceptar
           </Button>
         </Stack>
+        </Paper>
         <Fab sx={fabStyle} color="success" onClick={() => navigate('/login')}>
           <LoginIcon color="white" />
         </Fab>
