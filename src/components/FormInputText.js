@@ -14,6 +14,7 @@ const FormInputText = ({ name, control, label, rules = {}, ...rest }) => (
         variant="outlined"
         error={!!error}
         helperText={error?.message}
+        sx={{ backgroundColor: '#fff' }}
         {...rest}
       />
     )}
